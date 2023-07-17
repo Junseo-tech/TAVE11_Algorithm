@@ -32,7 +32,8 @@
 
 '''
 
-N,C = input().split()
+N,C = input().split() # N,C가 안 쓰인 이유는 파이썬이어서 굳이 안써도 됨
+# ex) 씨언어는 동적할당 해야 해서 N 값을 보내야 함 
 M = list(map(int, input().split()))
 
 fre = {}
@@ -47,3 +48,4 @@ for i in range(len(fre)):
     print((fre[i][0]+' ') * fre[i][1], end='')
 
         
+# COUNTER 이용해서 풀 수 있
