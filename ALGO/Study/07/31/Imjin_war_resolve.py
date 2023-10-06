@@ -48,23 +48,21 @@ sacheon hansan myeongnyang noryang okpo
 6/10
 
 '''
-
-import sys
+import sys 
 import itertools
 
 input = sys.stdin.readline
+
 N = int(input())
 
-correct_ans = dict(zip(input().split(), [i for i in range(N)])) # 정답이랑 정답 순서 딕셔너리에 같이 넣어주기
-# zip 함수 조사
+correct_ans = dict(zip(input().split(), [i for i in range(N)]))
 answer = input().split()
+
 pair = list(itertools.combinations(answer, 2))
 
-print(pair)
-
 score = 0
-for p in pair:
-    if correct_ans.get(p[0]) < correct_ans.get(p[1]): # 정답 순서로 비교
+for p in pair: # pair 튜플 내부를 계속 돈다. 
+    if correct_ans[p[0]] < correct_ans[p[1]] :
         score += 1
 
-print("%d/%d" % (score , N*(N-1)/2))
+print("%d/%d" % (score, N*(N-1)/2))
