@@ -51,29 +51,32 @@ i번째 줄에는 정점 i의 방문 순서를 출력한다.
 '''
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6) 
+sys.setrecursionlimit(10**8)
 
 N,M,R = map(int, input().split())
-
-graph = [[] for _ in range (N+1)] # 연결리스트
+graph = [[] for _ in range(N+1)]
 
 for _ in range(M):
-    u , v = map(int, input().split())
+    u, v = map (int, input().split())
     graph[u].append(v)
     graph[v].append(u)
 
-visited = [False] * (N+1) # 방문 여부 리스트
-stack = []
-stack.append(R)
+visited = [False] * (N+1)
 
-def dfs(): # 안 간곳 있으면 내림차순
-    while stack:
-        i = stack.pop()
-        if graph[i]:
-            graph[i].sort(reverse=True)
-            while graph[i]:
-                stack.append(graph[i].pop())
-            if not graph[i]:
-                visited[i] = True
-                print(i)      
-dfs()
+cnt = 0
+answer = [0] * (N+1)
+
+def dfs(V):
+    visited[V] = True
+    global cnt
+    cnt += 1
+    answer[V] = cnt
+    if graph[V]:
+        graph[V].sort(reverse=True)
+        for i in graph[V]:
+            if not visited[i]:
+                dfs(i)
+dfs(R)
+
+for i in range(1,len(answer)):
+    print(answer[i])
