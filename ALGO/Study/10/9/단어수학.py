@@ -34,20 +34,39 @@ AAA
 
 '''
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 N = int(input())
+dict = {}
+
 word = []
 for _ in range(N):
-    word.append(list(input().strip()).reverse)
-    
+    word.append(list(input().strip()))
 # word -> [['G', 'C', 'F'], ['A', 'C', 'D', 'E', 'B']]
 
-dict = {}
-# 문자열 수 비교
-for i in range(N-1):
-    if len(word[i]) > len(word[i+1]):
-        dict[word[i].popleft()] = 9
-    else:
-        dict[word[i+1].popleft()] = 8
+for i in range(N): # N 만큼 word 돌아감
+    for j in enumerate(word[i]):
+      
+    # 자릿 수 만큼 10 제곱형태 배당 시켜야 함
+    # 만약 전에 딕셔너리에 같은 것이 있으면 더해주고, 없으면 새로운 자릿수를 배당해야 함
+        if j[1] in dict:
+            dict[j[1]] += 10 ** (len(word[i]) - (j[0]+1))    
+        else:
+            dict[j[1]] = 10 ** (len(word[i]) - (j[0]+1))
+
+# 빈도 수 대로 높은 수 할당하기
+answer = list(dict.values())
+answer.sort(reverse=True)
+
+cnt = 9
+real_answer = 0
+
+for i in range(len(answer)):
+  real_answer += answer[i] * cnt
+  cnt -= 1
+
+print(real_answer)
+  
+
+
+  
