@@ -28,5 +28,18 @@ N이 주어졌을 때, P(N)을 구하는 프로그램을 작성하시오.
 --------
 3
 16
-
 '''
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    dp = [0] * 101 
+    dp[0] = 0
+    dp[1]=dp[2]= 1
+    for i in range(3, N+1):
+        dp[i] = dp[i-3] + dp[i-2]
+    print(dp[N])
+
+
