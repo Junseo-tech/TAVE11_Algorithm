@@ -35,8 +35,8 @@ noojkeab enilno egduj
 import sys
 input = sys.stdin.readline
 S = input().rstrip()
-word = ''
-result = ''
+word = '' #현재
+result = '' #최종
 flag = False
 
 for i in S:
