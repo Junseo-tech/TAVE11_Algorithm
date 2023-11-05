@@ -37,4 +37,40 @@
 0
 
 '''
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10 ** 6)
+from collections import deque
+
+T = int(input())
+
+dx = [-2,-1,-2,-1,+2,+1,+2,+1]
+dy = [+1,+2,-1,-2,+1,+2,-1,-2]
+
+def bfs(x,y):
+    visited[x][y] = True
+    q = deque([(x, y, 0)])
+
+    while q:
+        x,y,depth = q.popleft()
+        if x == goal_x and y == goal_y:
+            return depth
+        for i in range(8):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < l and 0<= ny < l:
+                if visited[nx][ny] == False:
+                    visited[nx][ny] = True
+                    q.append((nx,ny, depth + 1))
+
+for _ in range(T):
+    l = int(input())
+    visited = [[False] * l for _ in range(l)]
+    present_x,present_y = map(int, input().split())
+    goal_x, goal_y = map(int, input().split())
+    print(bfs(present_x,present_y))
+    
+    
+
+    
 
