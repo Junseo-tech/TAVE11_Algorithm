@@ -40,3 +40,27 @@
 Nice
 
 '''
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+present = list(map(int, input().split()))
+only_one = []
+target = 1
+
+for i in present:
+    only_one.append(i)
+    while only_one and only_one[-1] == target:
+        only_one.pop()
+        target += 1
+
+if only_one :
+    print("Sad")
+else:
+    print("Nice")
+
+
+
+    
+
+    
