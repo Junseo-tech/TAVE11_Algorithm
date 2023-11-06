@@ -53,11 +53,14 @@ count_range = 1
 
 for i in range(N):
     if i % 2 == 0:
+        # 길이 별로 수 저장 1은 몇개 2는 몇개 이렇게
         down[int(input())] += 1
     else:
         up[int(input())] += 1
 
 for i in range(H-1,0,-1):
+        # 5번째이면 5번째 보다 큰것들 5번째에 저장해줌
+        # 그거보다 작으면 무조건 부수니까
     up[i] += up[i+1]
     down[i] += down[i+1]
 
