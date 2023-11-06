@@ -42,3 +42,40 @@ N은 항상 짝수이다. (2 ≤ N ≤ 200,000, 2 ≤ H ≤ 500,000)
 2 3
 
 '''
+import sys
+input = sys.stdin.readline
+
+N,H = map(int, input().split())
+up = [0] * (H+1)
+down = [0] * (H+1)
+minimal_attach = N
+count_range = 1
+
+for i in range(N):
+    if i % 2 == 0:
+        down[int(input())] += 1
+    else:
+        up[int(input())] += 1
+
+for i in range(H-1,0,-1):
+    up[i] += up[i+1]
+    down[i] += down[i+1]
+
+for i in range(1,H+1):
+    if minimal_attach > (down[i] + up[H-i+1]):
+        minimal_attach = (down[i] + up[H-i+1])
+        count_range = 1
+    elif minimal_attach == (down[i] + up[H-i+1]):
+        count_range += 1
+
+print(minimal_attach , count_range)
+
+    
+
+
+
+
+
+
+
+
