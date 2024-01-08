@@ -27,3 +27,16 @@ def solution(prices):
                 break
         answer.append(sec)
     return answer
+
+# def solution(prices):
+#     lst = []
+#     for i in range(len(prices)) :
+#         cnt = 0
+#         for j in range(i+1, len(prices)) : # prices[0]과 [1, 2, 3, 4] 비교해보기 
+#             if prices[i] <= prices[j] : # 떨어지지 않으면 카운트 +1
+#                 cnt += 1
+#             else : # 떨어지면 카운트 후에 반복문 나가기 
+#                 cnt += 1
+#                 break
+#         lst.append(cnt)
+#     return lst
