@@ -27,8 +27,6 @@ def findSub(s,t):
 while True :
     try:
         input = sys.stdin.readline().rstrip()
-        if not input :
-            break
         count = 0
         s,t = input.split()
         print(findSub(s,t))
