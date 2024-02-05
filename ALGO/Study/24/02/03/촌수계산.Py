@@ -15,7 +15,7 @@ for _ in range(M):
 
 visited = [False] * (N+1)
 
-def dfs(v, count): #count 값을 같이 준 이유 -> 재귀 할 때 해당 노드에 대한 count 값을 기억하려고
+def dfs(v, count):#count 값을 같이 준 이유 -> 재귀 할 때 해당 노드에 대한 count 값을 기억하려고
     count += 1 # 노드가 2이고 count 3인데 (이전 호출 스택 2,2) 4,1 4,3
     # print(count)
     print("노드 :"+  str(v) + " count " + str(count) )
