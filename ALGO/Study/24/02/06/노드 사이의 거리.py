@@ -32,3 +32,6 @@ for _ in range(M):
     goal_1, goal_2 = map(int, input().split())
     print(bfs(goal_1, goal_2))
 
+#처음에는 x == y가 아니라, x == next_point가 같으면 으로 조건문을
+#잘 못 잡았다. 그래서 weight를 넣기가 애매했었다.
+#x가 지금 목적지와 같으면 그대로 리턴하고, weight를 일관적으로 더해주는 방법이 맞았다. 
