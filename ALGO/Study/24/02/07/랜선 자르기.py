@@ -17,7 +17,7 @@ while min_value <= max_value : # 1 6 6 같은 인풋 처럼, max랑 min이 같�
         count += line // mid
     if count >= N :
         min_value = mid + 1
-    if count < N:
+    else:
         max_value = mid - 1
 
 print(max_value) # max가 mid 값 중 최대 값이다. 최소값보다 작아지는 순간에 출력되기 때문에 정답 범위중 최댓값임.
