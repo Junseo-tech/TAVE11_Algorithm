@@ -1,31 +1,43 @@
 import sys
 from collections import deque
+sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 n,m = map(int, input().split())
-loads = []
+
 visited = [[0] * m for _ in range(n)]
+graph = []
+for _  in range(n):
+    graph.append(list(map(int, input().split())))
 
-nx = [-1,1,0,0]
-ny = [0,0,-1,1]
-
-for _ in range(m):
-    loads.append(input().split())
+dx = [-1,1,0,0]
+dy = [0,0,1,-1]
 
 def bfs(x,y):
     q = deque([(x,y)])
+    visited[x][y] = 1
     while q:
         x,y = q.popleft()
-        if loads[x][y] == 2:
-            visited[x][y] = 1
         for i in range(4):
-            dx = x + nx[i]
-            dy = y + ny[i]
-            if loads[dx][dy] == 2:
-                visited[dx][dy] += 1
-            else:
-                if not visited[dx][dy]:
-                    visited[dx][dy] = 1
-                    q.append((dx,dy))
-bfs(0,0)
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx >= m or ny < 0 or ny >= n:
+                continue
+            if not visited[nx][ny] and graph[nx][ny] >= 1:
+                visited[nx][ny] += (visited[x][y] + 1)
+                q.append((nx,ny))
+    return
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 2:
+            bfs(i,j)
+            break
 
-print(visited)
+for i in range(n):
+    for j in range(m):
+        if not visited[i][j] and graph[i][j] != 0:
+            print(-1, end = '')
+        elif visited[i][j]:
+            print(visited[i][j]-1, end = '')
+        else:
+            print(visited[i][j], end = '')
+    print()
