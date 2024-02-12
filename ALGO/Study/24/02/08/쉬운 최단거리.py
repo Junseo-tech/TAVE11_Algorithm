@@ -6,7 +6,7 @@ n,m = map(int, input().split())
 
 visited = [[0] * m for _ in range(n)]
 graph = []
-for _  in range(n):
+for _  in range(m):
     graph.append(list(map(int, input().split())))
 
 dx = [-1,1,0,0]
@@ -26,8 +26,10 @@ def bfs(x,y):
                 visited[nx][ny] += (visited[x][y] + 1)
                 q.append((nx,ny))
     return
-for i in range(n):
-    for j in range(m):
+
+bfs(0,0)
+for i in range(1,n):
+    for j in range(1,m):
         if graph[i][j] == 2:
             bfs(i,j)
             break
@@ -35,9 +37,9 @@ for i in range(n):
 for i in range(n):
     for j in range(m):
         if not visited[i][j] and graph[i][j] != 0:
-            print(-1, end = '')
-        elif visited[i][j]:
-            print(visited[i][j]-1, end = '')
+            print(-1, '', end = '')
+        elif visited[i][j] and graph[i][j] >= 1:
+            print(visited[i][j]-1, '' , end = '')
         else:
-            print(visited[i][j], end = '')
+            print(visited[i][j], '' , end = '')
     print()
