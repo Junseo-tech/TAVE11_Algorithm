@@ -42,4 +42,3 @@ for i in range(n):
             print(visited[i][j]-1, '' , end = '')
         else:
             print(visited[i][j], '' , end = '')
-    print()
