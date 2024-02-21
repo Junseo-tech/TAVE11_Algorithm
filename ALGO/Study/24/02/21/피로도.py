@@ -14,7 +14,7 @@ def solution(k, dungeons):
         ans_list.append(count)
     answer = max(ans_list)  
     return answer
+
 k = 80
 dungeons = [[80,20],[50,40],[30,10]]
-#solution(k,dungeons)
 print(solution(k,dungeons))
