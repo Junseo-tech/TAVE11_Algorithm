@@ -13,3 +13,5 @@ vals = [1,2,11,21,26,35,37,58,98,105]
 result = [1,11,2,21,35,105,26,37,58,98]
 '''
 
+import sys
+input = sys.stdin.readline
