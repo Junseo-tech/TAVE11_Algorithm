@@ -13,8 +13,8 @@ for _ in range(N):
 #         if load[i][j] not in operators:
 #             load[i][j] = int(load[i][j])
 
-min_ans = (10 ** 10)
-max_ans = -(10 ** 10)
+min_ans = 10 ** 10
+max_ans = -10 ** 10
 
 def dfs(x, y, present):
     global min_ans
