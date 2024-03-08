@@ -36,17 +36,3 @@ def dfs(x, y, present):
 
 dfs(0,0,load[0][0])
 print(max_ans, min_ans)
-
-
-
-    
-
-
-    
-
-    
-
-
-
-
-
