@@ -5,7 +5,9 @@ N,K = map(int,input().split())
 answer = 0
 
 while bin(N).count('1') > K:
-    N += (N & -N)
-    answer += (N & -N)
+    answer += N & -N
+    N += N & -N
 
 print(answer)
+
+
