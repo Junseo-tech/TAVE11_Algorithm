@@ -1,6 +1,15 @@
 import sys
 from collections import deque
 input = sys.stdin.readline
+"""
+3
+3
+0 1 0
+1 0 1
+0 1 0
+1 2 3
+YES
+"""
 N = int(input()) #도시의 수
 M = int(input()) #여행 계획에 속한 도시의 수 
 linked_city = [list(map(int, input().split())) for _ in range(N)]
@@ -13,33 +22,27 @@ for i in range(N):
         if linked_city[i][j] == 1:
             graph[i+1].append(j+1)
 
-def bfs(start, route, graph):
-    q = deque([])
-    q.append(start)
-    if len(route) == 0:
-        print("YES")
-        return
+def bfs(start, next):
+    q = deque([start])
+    visited = [False] * (N+1)
+    visited[start] = True
     while q:
-        now = q.popleft() # 1, 2
-        print("now", now)
-        next = route.popleft() # 2, 3, 3
-        if len(route) == 0: # 3, 2
-            print("YES")
-            return
+        now = q.popleft()
+        if now == next:
+            return True
         for i in graph[now]:
-            if i == next:
-                q.append(next) # 2
-                print("q에 추가 되는 next 출력 : ",i, next) # 2 일 때 next로 2
-            else:
-                route.appendleft(next)
-                
-                print("루트에 추가 되는 next 출력: " , i, next) # next로 3이 다시 추가
+            if not visited[i]:
+                visited[i] = True
+                q.append(i)
+    return False
+
+answer = True
+for i in range(M-1):
+    if not bfs(route[i], route[i+1]):
+        answer = False
+        break
+
+if answer:
+    print("YES")
+else:
     print("NO")
-    return
-
-
-bfs(route.popleft(), route, graph)
-
-
-
-
