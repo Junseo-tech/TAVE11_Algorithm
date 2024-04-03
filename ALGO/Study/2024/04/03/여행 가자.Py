@@ -1,15 +1,7 @@
 import sys
 from collections import deque
 input = sys.stdin.readline
-"""
-3
-3
-0 1 0
-1 0 1
-0 1 0
-1 2 3
-YES
-"""
+
 N = int(input()) #도시의 수
 M = int(input()) #여행 계획에 속한 도시의 수 
 linked_city = [list(map(int, input().split())) for _ in range(N)]
@@ -22,18 +14,18 @@ for i in range(N):
         if linked_city[i][j] == 1:
             graph[i+1].append(j+1)
 
-def bfs(start, next):
+def bfs(start, next): 
     q = deque([start])
     visited = [False] * (N+1)
     visited[start] = True
     while q:
-        now = q.popleft()
+        now = q.popleft() 
         if now == next:
             return True
-        for i in graph[now]:
+        for i in graph[now]: 
             if not visited[i]:
-                visited[i] = True
-                q.append(i)
+                visited[i] = True 
+                q.append(i) 
     return False
 
 answer = True
