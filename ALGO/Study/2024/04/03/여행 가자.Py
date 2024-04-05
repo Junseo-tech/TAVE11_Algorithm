@@ -15,12 +15,12 @@ for i in range(N):
             graph[i+1].append(j+1)
 
 def bfs(start, next): 
-    q = deque([start])
+    q = deque([start]) 
     visited = [False] * (N+1)
-    visited[start] = True
+    visited[start] = True 
     while q:
         now = q.popleft() 
-        if now == next:
+        if now == next: 
             return True
         for i in graph[now]: 
             if not visited[i]:
@@ -30,7 +30,7 @@ def bfs(start, next):
 
 answer = True
 for i in range(M-1):
-    if not bfs(route[i], route[i+1]):
+    if not bfs(route[i], route[i+1]): 
         answer = False
         break
 

@@ -10,7 +10,7 @@ choice[c] = 1
 
 for i in range(k): # 처음 k개의 초밥을 선택해서 중복되지 않은 수만 더해주기
     choice[sushi[i]] += 1
-    if choice[sushi[i]] == 1:
+    if choice[sushi[i]] == 1: # 7 9 30 2 c = 30
         max_count += 1
 
 # 여기서 부터 슬라이딩 윈도우 알고리즘 적용해야 함
@@ -22,7 +22,7 @@ result = max_count
 for i in range(N):
     choice[sushi[i]] -= 1
     if choice[sushi[i]] == 0:
-        max_count -= 1
+        max_count -= 1 
     # 뒤에꺼 추가
     choice[sushi[(k+i) % N]] += 1
     if choice[sushi[(k+i) % N]] == 1 :

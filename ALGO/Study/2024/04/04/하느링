@@ -1,0 +1,16 @@
+# 기차가 어둠을 헤치고 은하수를
+n, m = map(int, input().split())
+trains = ['0' * 20 for _ in range(n)]
+
+for _ in range(m):
+    order = list(map(int, input().split()))
+    if order[0] == 1:
+        trains[order[1] - 1] = trains[order[1] - 1][:order[2] - 1] + '1' +trains[order[1] - 1][order[2]:]
+    elif order[0] == 2:
+        trains[order[1] - 1] = trains[order[1] - 1][:order[2] - 1] + '0' +trains[order[1] - 1][order[2]:]
+    elif order[0] == 3:
+        trains[order[1] - 1] = '0' + trains[order[1] - 1][:19]
+    elif order[0] == 4:
+        trains[order[1] - 1] = trains[order[1] - 1][1:] + '0'
+
+print(len(set(trains)))

@@ -1,0 +1,30 @@
+# 여행 가자
+
+import sys
+INF = sys.maxsize
+
+n = int(input())
+m = int(input())
+road = [list(map(int, input().split())) for _ in range(n)]
+
+for i in range(n):
+    for j in range(n):
+        if road[i][j] == 0:
+            road[i][j] = INF
+    road[i][i] = 0
+
+city = list(map(int, input().split()))
+
+for k in range(n):
+    for a in range(n):
+        for b in range(n):
+            road[a][b] = min(road[a][b], road[a][k] + road[k][b])
+
+for i in range(m - 1):
+    start = city[i] - 1
+    end = city[i + 1] - 1
+    if road[start][end] == INF:
+        print('NO')
+        exit()
+
+print('YES')

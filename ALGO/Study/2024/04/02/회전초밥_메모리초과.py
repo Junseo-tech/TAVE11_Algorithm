@@ -24,3 +24,5 @@ if all(c in ans for ans in pre_answer):
     print(k)
 else:
     print(k+1)
+
+

@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static BufferedReader br;
+	static StringTokenizer st;
+	static int N, M, x;
+	static int[] parent;
+	static int[] arr;
+	
+	public static void main(String[] args) throws Exception {
+		br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		M = Integer.parseInt(br.readLine());
+		
+		parent = new int[N+1];
+		
+		for(int i = 0; i <= N; i++) 
+			parent[i] = i;
+		for(int i = 0; i < N; i++) {
+			arr = new int[N];
+			st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < N; j++) {
+				arr[i] = Integer.parseInt(st.nextToken());
+				if(arr[i] == 1) {
+					union(i+1, j+1);
+				}
+			}
+		}
+		
+		Set<Integer> ans = new HashSet<>();
+		st = new StringTokenizer(br.readLine());
+
+		for(int i = 0; i < M; i++) {
+			x = Integer.parseInt(st.nextToken());
+			ans.add(parent[x]);
+			if(ans.size() >= 2) {
+				System.out.println("NO");
+				System.exit(0);
+			}
+		}
+		System.out.println("YES");
+	}
+
+	private static void union(int a, int b) {
+		a = find(a);
+		b = find(b);
+		
+		if(a == b) return;
+		if(a <= b) parent[b] = a;
+		else parent[a] = b;
+	}
+
+	private static int find(int x) {
+		if(x == parent[x]) return x;
+		return parent[x] = find(parent[x]);
+	}
+}
