@@ -7,7 +7,7 @@ calculation = [list(map(int, input().split())) for _ in range(m)]
 parent = [i for i in range(n+1)]
 
 def set_calculate(oper, a, b):
-    answer = set ()
+    answer = set()
     if oper == 0:
         union(a,b)
     if oper == 1:
