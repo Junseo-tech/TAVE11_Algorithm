@@ -35,11 +35,3 @@ while True:
     count += 1
     print(f"Problem {count}: {visited[N-1][N-1]}")
 
-
-
-    
-
-
-
-
-
