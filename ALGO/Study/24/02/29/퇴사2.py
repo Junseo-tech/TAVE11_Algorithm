@@ -10,5 +10,6 @@ for i in range(N+1):
     nxt = i + work[i][0]
     if nxt < N+2:
         dp[nxt] = max(dp[nxt], max_num + work[i][1])
+        print(dp)
 
-print(dp[N])
+# print(dp[N])
