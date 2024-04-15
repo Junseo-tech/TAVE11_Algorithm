@@ -1,5 +1,4 @@
 import sys
-from itertools import product
 input = sys.stdin.readline
 
 # 같은 종류의 문자로 이루어져 있고, 같은 문자는 같은 개수 만큼 있다 -> 같은 구성을 갖는다
@@ -11,22 +10,16 @@ input = sys.stdin.readline
 
 N = int(input())
 target = input().strip()
-target_dict = {}
+words = [input().strip() for _ in range(N-1)]
+count = 0
 
-for t in target:
-    target_dict[t] = target_dict.get(t, 0) + 1
-
-words = [list(map(str, input().strip())) for _ in range(N-1)]
-
-count = len(words)
-
-# D DDD 이면 0 
-for i in range(N-1):
-    check = {}
-    for j in range(len(words[i])):
-        check[words[i][j]] = check.get(words[i][j], 0) + 1
-        if check[words[i][j]] > 1 :
-            count -= 1
-            break
+for word in words:
+    if abs(len(word) - len(target)) > 1 or len(set(target).difference(set(word))) > 1:
+        continue
+    for t in target:
+        if t in word:
+            word = word.replace(t,"",1)
+    if len(word) <= 1:
+        count += 1
 
 print(count)
