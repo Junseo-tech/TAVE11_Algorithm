@@ -26,7 +26,7 @@ def set_obstacle(obstacle):
                     graph[i][j] = 'O'
                     set_obstacle(obstacle + 1)
                     graph[i][j] = 'X'
-    return False
+
 
 dx = [-1,1,0,0]
 dy = [0,0,-1,1]
