@@ -25,7 +25,7 @@ def set_obstacle(obstacle):
                 if graph[i][j] == 'X':
                     graph[i][j] = 'O'
                     set_obstacle(obstacle + 1)
-                    graph[i][j] = 'X'
+                    graph[i][j] = 'X' # 백 트래킹
 
 
 dx = [-1,1,0,0]
