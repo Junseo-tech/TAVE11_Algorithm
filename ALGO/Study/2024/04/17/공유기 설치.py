@@ -10,14 +10,12 @@ house.sort()
 # 가장 인접한 두 공유기 사이의 최대 거리를 출력
 
 # 1 2 4 8 9
-start = 0
+start = 1
 end = len(house) - 1
+max = -1
 
 while start <= end :
     mid = (start + end) // 2
-    if house[mid] - house[start] < house[end] - house[mid] :
-        pass
-    else:
-        pass
+
 
 
