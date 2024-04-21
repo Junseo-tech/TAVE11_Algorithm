@@ -14,8 +14,10 @@ for i in range(N):
             house.append([i,j])
 
 result = sys.maxsize
+print("house", house)
 for comb in combinations(chicken, M):
     temp = 0
+    print("comb", comb)
     for r,c in house:
         dist = sys.maxsize
         for x,y in comb:
