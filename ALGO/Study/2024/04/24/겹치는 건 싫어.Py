@@ -10,17 +10,6 @@ max_len = 0
 sequence_list = []
 
 while end < N:
-    if sequence[start] != sequence[end]:
-        sequence_list.append(sequence[end])
-    else:
-        if sequence_list.count(sequence[end]) < K:
-            sequence_list.append(sequence[end])
-        else: # K 보다 클 때 -> 새로운 count 
-            pass
-    max_len = max(max_len, len(sequence_list[:sequence[end]]))
-    start = end
-    end += 1
+    pass
 
-
-print(max_len)
     
