@@ -11,7 +11,7 @@ while right < N:
         count[sequence[right]] += 1
         right += 1
     else:
-        count[sequence[left]] += 1
+        count[sequence[left]] -= 1
         left += 1
     answer = max(answer, right-left)
 
