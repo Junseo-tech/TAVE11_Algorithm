@@ -2,7 +2,7 @@ import sys
 input = sys.stdin.readline
 N, K = map(int, input().split())
 sequence = list(map(int, input().split()))
-count = [0] * (max(list) + 1)
+count = [0] * (max(sequence) + 1)
 left, right = 0,0
 answer = 0
 
