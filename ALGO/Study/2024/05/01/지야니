@@ -1,0 +1,37 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+    static BufferedReader br;
+    static StringBuilder sb;
+    static int G;
+    static double x;
+
+    public static void main(String[] args) throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        sb = new StringBuilder();
+        G = Integer.parseInt(br.readLine());
+        boolean flag = true;
+
+        int a = 1;
+        while(true) {
+            if((a*a) - ((a-1) * (a-1)) > G) break;
+            for(int b = a-1; b > 0; b--) {
+                if((a*a) - (b*b) > G) break;
+                if((a*a) - (b*b) == G) {
+                    flag = false;
+                    sb.append(a).append("\n");
+                }
+            }
+            a++;
+        }
+        //a**2 - b**2 > g일때 ㄴㄴ임!!
+
+        if(flag) {
+            System.out.println(-1);
+        } else {
+            System.out.println(sb);
+        }
+        
+    }
+}
