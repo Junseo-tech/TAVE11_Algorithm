@@ -18,3 +18,8 @@ def part_1(): # 5번
 
 def part_2(): # 6번
     pass
+
+N, M, R = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(N)]
+command = list(map(int, input().split()))
+
