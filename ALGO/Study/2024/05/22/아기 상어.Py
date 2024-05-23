@@ -20,42 +20,70 @@ for i in range(N):
     for j in range(N):
         if space[i][j] == 9:
             shark_dir.append((i,j))
+            space[i][j] = 0
         if space[i][j] > 0 and space[i][j] < 7:
             fish.append((i,j))
+
+# 먹을 수 있는 애들 한테 가는 중에 더 큰 애들 있으면 지나가지 못하는 거 유의하기
+
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
+
+def bfs(shark_x, shark_y, shark):
+    q = deque([(shark_x, shark_y)])
+    visited = [[False] * N for _ in range(N)]
+    distance = [[0] * N for _ in range(N)]
+    visited[shark_x][shark_y] = True
+    while q:
+        x,y = q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0<=nx<N and 0<=ny<N and not visited[nx][ny] and shark >= space[nx][ny]:
+                distance[nx][ny] = distance[x][y] + 1
+                q.append((nx,ny))
+                visited[nx][ny] = True
+    return distance
 
 shark = 2
 time = 0
 fish_count = 0
+
 while True:
-    min_dis = 50
-    if len(fish) == 0:
+    if fish_count == shark:
+        shark += 1
+        fish_count = 0
+
+    min_distance = float('inf')
+    shark_x, shark_y = shark_dir[0]
+    distance = bfs(shark_x, shark_y, shark)
+    candidate = []
+    for x,y in fish:
+        if distance[x][y] != 0 and space[x][y] < shark: # 먹을 수 있는 애들 다 담기
+            if min_distance > distance[x][y]:
+                min_distance = distance[x][y]
+                candidate = [(x,y)]
+            if min_distance == distance[x][y]:
+                candidate.append((x,y))
+
+    if len(candidate) == 0:
         break
-    if len(fish) == 1:
-        x,y = fish.pop()
-        if space[x][y] < shark:
-            time += abs(shark_dir[0][0] - x) + abs(shark_dir[0][1] - y) 
-        break
-    if len(fish) > 1:
-        for x,y in fish:
-            if min_dis > abs(shark_dir[0][0] - x) + abs(shark_dir[0][1] - y) and space[x][y] < shark:
-                min_x = x
-                min_y = y
-                min_dis = abs(shark_dir[0][0] - x) + abs(shark_dir[0][1] - y)
-            if min_dis == abs(shark_dir[0][0] - x) + abs(shark_dir[0][1] - y): # 같을 경우
-                if min_x > x:
-                    min_x = x
-                    min_y = y
-                if min_x == x:
-                    if min_y > y:
-                        min_x = x
-                        min_y = y
-        time += min_dis
-        fish.remove((min_x, min_y))
-        fish_count += 1
-        if shark == fish_count:
-            shark += 1
-        space[min_x][min_y] = 0
-        shark_dir.pop()
-        shark_dir.append((min_x, min_y))
-        
+    candidate.sort()
+    min_x, min_y = candidate[0] # 잡아 먹을 애
+    space[min_x][min_y] = 0 # 먹힘
+    fish_count += 1 # 먹혔다 처리
+
+    fish.remove((min_x, min_y))
+
+    time += min_distance
+
+    shark_dir.pop()
+    shark_dir.append((min_x, min_y))
+
 print(time)
+
+
+        
+
+    
+
