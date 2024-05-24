@@ -81,9 +81,3 @@ while True:
     shark_dir.append((min_x, min_y))
 
 print(time)
-
-
-        
-
-    
-
