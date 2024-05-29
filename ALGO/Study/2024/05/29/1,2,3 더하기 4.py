@@ -1,5 +1,4 @@
 import sys
-from itertools import product
 input = sys.stdin.readline
 T = int(input())
 dp = [1] * 10001
