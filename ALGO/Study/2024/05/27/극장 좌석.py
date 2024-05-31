@@ -26,9 +26,9 @@ fixed = 0
 if M > 0:
     for seat in fix:
         if seat - fixed - 1 > 0:
-            answer *= dp[seat-fixed-1]
-        fixed = seat
-    if N - fixed > 0:
+            answer *= dp[seat-fixed-1] # 7-4-1 = 2
+        fixed = seat # 4
+    if N - fixed > 0: # 마지막 꺼 안들어가길래 포함 시켜 놓은 것
         answer *= dp[N-fixed]
 else:
     answer = dp[N]
