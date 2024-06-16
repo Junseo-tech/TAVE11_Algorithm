@@ -1,0 +1,90 @@
+@Service
+@RequiredArgsConstructor
+public class PurchaseService {
+    private IamportClient iamportClient;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Value("${imp.api.key}")
+    private String apiKey;
+
+    @Value("${imp.api.secretkey}")
+    private String secretKey;
+
+    @PostConstruct
+    public void init() {
+        this.iamportClient = new IamportClient(apiKey, secretKey);
+    }
+
+    public MessageResponse PurchaseVerify(Long userId, Long goodsId, String imp_uid) {
+        try {
+            BigDecimal dbPrice = calculateDBAmount(goodsId);
+            System.out.println("importUid: " + imp_uid);
+
+            IamportResponse<Payment> iamportResponse = iamportClient.paymentByImpUid(imp_uid);
+
+            if (iamportResponse.getResponse() == null) {
+                return new MessageResponse("구매에 실패하였습니다: 결제 정보를 찾을 수 없습니다.");
+            }
+
+            BigDecimal paidAmount = iamportResponse.getResponse().getAmount();
+            String merchant_uid = iamportResponse.getResponse().getMerchantUid();
+
+            if (purchaseRepository.existsById(merchant_uid)) {
+                return new MessageResponse("구매에 실패하였습니다: 중복된 주문 번호");
+            }
+
+            if (paidAmount.compareTo(dbPrice) != 0) {
+                CancelData cancelData = createCancelData(iamportResponse, 0); // 전체 환불
+                iamportClient.cancelPaymentByImpUid(cancelData);
+                return new MessageResponse("구매에 실패하였습니다: 금액 불일치");
+            }
+
+            Users users = userRepository.findUserById(userId);
+            if (users == null) {
+                return new MessageResponse("구매에 실패하였습니다: 사용자 정보를 찾을 수 없습니다.");
+            }
+
+            int pencils = users.getPencils();
+            Goods goods = entityManager.find(Goods.class, goodsId);
+            if (goods == null) {
+                return new MessageResponse("구매에 실패하였습니다: 상품 정보를 찾을 수 없습니다.");
+            }
+
+            int plus = goods.getPencil();
+            users.setPencils(pencils + plus);
+            userRepository.save(users);
+
+            Purchase purchase = new Purchase(merchant_uid, users);
+            purchaseRepository.save(purchase);
+
+            return new MessageResponse("구매가 완료 되었습니다");
+
+        } catch (IamportResponseException e) {
+            e.printStackTrace();
+            return new MessageResponse("구매에 실패하였습니다: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new MessageResponse("구매에 실패하였습니다: 네트워크 오류");
+        }
+    }
+
+    private BigDecimal calculateDBAmount(Long goodsId) {
+        Goods goods = entityManager.find(Goods.class, goodsId);
+        return goods != null ? goods.getPrice() : BigDecimal.ZERO;
+    }
+
+    private CancelData createCancelData(IamportResponse<Payment> response, int refundAmount) {
+        if (refundAmount == 0) {
+            return new CancelData(response.getResponse().getImpUid(), true);
+        }
+        return new CancelData(response.getResponse().getImpUid(), true, new BigDecimal(refundAmount));
+    }
+}
