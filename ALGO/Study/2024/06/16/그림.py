@@ -7,6 +7,7 @@ visited = [[False] * M for _ in range(N)]
 
 dx = [-1,1,0,0]
 dy = [0,0,1,-1]
+#ㅇㅇ
 ans = []
 def bfs(x,y,count):
     q = deque([(x,y)])
