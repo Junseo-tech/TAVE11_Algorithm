@@ -2,7 +2,7 @@ N = int(input())
 
 def is_good(num):
     for i in range(1, len(num)// 2 + 1):
-        if num[-i:] == num[-2*i:-i]:
+        if num[-i:] == num[-2*i:-i]: 
             return False
     return True
 
